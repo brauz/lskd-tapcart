@@ -588,6 +588,16 @@ export default function ProductOptionsSelector({
         [handleSelectState, setHasUpdatedVariant]
     )
 
+    // Expose handleSelect to window so that Brauz Find In-Store component can re-use this function
+    React.useEffect(
+      () => {
+        window.LSKDHelper_handleSelect = (...params) => {
+          handleSelect(...params);
+        }
+      },
+      [handleSelect]
+    )
+
     React.useEffect(() => {
         if (hasUpdatedVariant) {
             const url = window.location ? new URL(window.location.href) : ""

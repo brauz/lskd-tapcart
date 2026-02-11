@@ -596,6 +596,16 @@ export default function AddToBagButtons({
     }
   }, [selectedVariant, sellingPlanId, altId, isAddonChecked, addonVariantId]);
 
+  // Expose handleAddToCart to window so that Brauz Find In-Store component can re-use this function
+  React.useEffect(
+    () => {
+      window.LSKDHelper_handleAddToCart = () => {
+        handleAddToCart();
+      }
+    },
+    [handleAddToCart]
+  )
+
   const handleNotification = () => {
     Tapcart.actions?.getCustomerIdentity(null, {
       onSuccess: (user) => {
